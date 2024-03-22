@@ -432,7 +432,7 @@
 					{% for product in products %}
 						<div class="card-product" onclick="goto({{product.id}})">
 							<div class="card-img">
-								<a href="/product_detail/{{product.id}}"><img src="{{ asset('uploads/products/'~ product.illustration ) }}" alt=""></a>
+								<a href="/product_detail/{{product.id}}"><img src="uploads/products/{{product.illustration}}" alt=""></a>
 							</div>
 							<div class="card-body">
 								<a href="/product_detail/{{product.id}}">

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-  <link rel="stylesheet" href="{{ asset('css/detail.css') }}" />
+  <link rel="stylesheet" href="css/detail.css" />
 {% endblock %}
 {% block body %}
   <section>
     <div class="row">
       <div class="col" data-aos="fade-right" data-aos-duration="1500">
         <div class="card-img">
-          <img src="{{ asset('uploads/products/' ~ product.illustration) }}" alt="" />
+          <img src="uploads/products/{{product.illustration}}" alt="" />
         </div>
       </div>
 
@@ -36,7 +36,7 @@
             <span>Don't miss it</span>
           </div> 
         </div> #}
-          <a href="{{ path('app_cart_add', {'id' : product.id }) }}" class="btn-dark" autofocus>Ajouter au panier</a>
+          <a href="{{ path('app_cart_add', {'id' : product.id }" class="btn-dark" autofocus>Ajouter au panier</a>
       </div>
     </div>
   </section>
