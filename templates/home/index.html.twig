@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/index.css')}}">
+	<style></style>
+{% endblock %}
+{% block body %}
+	<section class="header" data-aos="zoom-in" data-aos-duration="2500">
+		<div class="header">
+			<img src="{{ asset('images/bg.jpg')}}" loading="lazy" alt="">
+			<div class="text-header" style="">
+				<h2 style="font-size:2em;">Bienvenue sur Westerneat</h2>
+				<p style="width:100%;" id="p">Vous êtes commerçant ou client?
+				</p>
+				<p style="padding-bottom:1em;" id="p">Vous souhaitez vendre vos articles ou en acheter ?</p>
+				{% if is_granted('ROLE_ADMIN') %}
+					<a href="/compte" class="btn-light">Accedez à votre compte</a>
+				{% elseif is_granted('ROLE_CLIENT') %}
+					<a href="/compte" class="btn-light">Accedez à votre compte</a>
+				{% elseif is_granted('ROLE_COMMERCANT') %}
+					<a href="/compte/commercant" class="btn-light">Accedez à votre compte</a>
+				{% else %}
+					<a href="/choice" class="btn-light">Inscrivez-Vous</a>
+				{% endif %}
+			</div>
+		</div>
+	</section><section style="padding: 5em 0;">
+		<div class="row row-bg" data-aos="fade-right" data-aos-duration="2000">
+			<div class="col">
+				<h2>Cliquez ici pour</h2><a href="/nos-produits" style="width: auto;" class="btn-dark">Commandez</a>
+			</div>
+		</div>
+	</section>
+	<section
+		class="padding"><div class="banner-blue-end" data-aos="zoom-in" data-aos-duration="2500">
+			<div>
+				<img class="left" src="{{asset('images/phone-removebg-preview.png')}}" loading="eager" alt="">
+			</div>
+			<div class="end">
+				<h2>Westerneat offre une navigation fluide sur téléphone.</h2>
+				<a href="/nos-produits" class="btn-light">Acheter nos produits</a>
+			</div>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+{# <script src="https://js.stripe.com/v3/"></script> #}
+{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/cart.css') }}" />
+{% endblock %}
+{% block body %}
+  {% set total = null %}
+  <section>
+    <h2>Résumé de votre commande</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Image</th>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Prix</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in cart %}
+            <tr>
+              <th>1</th>
+              <td>
+                <img src="uploads/products/{{ product.illustration }}" alt="{{ product.name }}" />
+              </td>
+              <td>{{ product.name }}</td>
+              <td>
+                <div class="row">
+                  <span>{{ product.quantity }}</span>
+                </div>
+              </td>
+              <td>{{ (product.price * product.quantity)|number_format(2, ',', '.') }} CFA</td>
+            </tr>
+            {% set total = total + product.price * product.quantity %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-cart">
+      {% set commission = total  / 100 %}
+      <p>
+        <strong>Sous-Total :</strong> {{ total|number_format(2, ',', '.') }} CFA
+      </p>
+      <p>
+        <strong>Commission :</strong> {{ commission|number_format(2, ',', '.') }} CFA
+      </p>
+      <a style="margin:1%" class="btn-dark" id="checkout-button" href="/order_send/stripe/{{ref}}">
+        Stripe |
+        {{ (total + commission)|number_format(2, ',', '.') }}
+        CFA
+      </a>
+      <br>
+      <a style="margin:1%" class="btn-dark" id="checkout-button" href="/order_send/airtel/{{ref}}">
+        Airtel/Moov |
+        {{ (total + commission)|number_format(2, ',', '.') }}
+        CFA
+      </a>
+    </div>
+  </section>
+{% endblock %}

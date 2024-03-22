@@ -1,0 +1,33 @@
+<a tabindex="0" id="hamburger" class="menu"><img src="{{ asset('images/menu.svg') }}" alt=""/></a>
+<div class="sidebar zero" id="sidebar">
+	<h3 class="compte" id="visible">Mon compte</h3>
+	<p>Bienvenue
+		{# <b>{{ app.user.firstname }}</b> #}
+	</p>
+	{% if is_granted('ROLE_ADMIN') %}
+		<a class="link" href="/admin" id="visible">Vous etes un administrateur, acceder au backoffice</a>
+	{% endif %}
+
+
+	{% if is_granted('ROLE_VENDOR') %}
+		<h4 class="btn btn-info" id="visible">Votre Code Commercant :
+			<span style="color:red;">{# {{ app.user.codecommercant }} #}</span>
+		</h4>
+		<a class="link" href="{{ path('app_account_product') }}">
+			<img src="/icons/products.svg" alt="">
+			Mes Produits</a>
+		<a class="link" href="{{ path('app_sales') }}"><img src="/icons/command.svg" alt="">Mes ventes</a>
+		<a class="link" href="{{ path('app_product_new') }}"><img src="/icons/product.svg" alt="">Ajouter Produit</a>
+		<a class="link" href="{{ path('app_update_account') }}"><img src="/icons/user.svg" alt="">Modifier informations</a>
+		<a class="link" href="{{ path('app_update_number') }}"><img src="/icons/phone.svg" alt="">Ajouter Numero airtel money</a>
+		{# //AJOUTEZ VOTRE NUMERO AIRTEL MONEY POUR VOS PAIEMENTS #}
+		{# <a class="link" href="{{path('product_new')}}"> <button class="btn btn-info"> Ajouter Produit</button></a> #}
+		<br/>
+	{% else %}
+		<a class="link" href="{{ path('app_sales') }}"><img src="/icons/command.svg" alt="">Mes commandes</a>
+		<a class="link" href="{{ path('app_update_account') }}"><img src="/icons/user.svg" alt="">Modifier informations</a>
+	{% endif %}
+
+	<a class="link" href="/"><img src="/icons/home.svg" alt="">Acceder à l'accueil</a>
+	<a class="link" href="/signout"><img src="/icons/logout.svg" alt="">Déconnexion</a>
+</div>

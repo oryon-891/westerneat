@@ -1,0 +1,29 @@
+{% extends 'dash.html.twig' %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
+	<style>
+		.margin {
+			margin: 12px;
+		}
+        #services{
+            width: 100%;
+            height: 100%;
+        }
+        form:not(.search-group){
+            width: 100%;
+            height: 97vh;
+        }
+        label{
+            display: none;
+        }
+	</style>
+{% endblock %}
+{% block body %}
+	<section id="services" class="services">
+		{{ form_start(form, {'method': 'post', 'action': path('app_product_new'), }) }}
+		<h2>Creer un produit</h2>
+		{{ form_widget(form) }}
+		<button class="btn-dark">{{ button_label|default('Enregistrer') }}</button>
+		{{ form_end(form) }}
+	</section>
+{% endblock %}

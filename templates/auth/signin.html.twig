@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Alton</title>
+
+		<link rel="stylesheet" href="{{asset('css/reset.css')}}">
+		<link rel="stylesheet" href="{{asset('css/form.css')}}">
+		<style>
+			hr {
+				padding: 0;
+				width: 80%;
+			}
+			label {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		{% if error %}
+			<div class="alert danger">{{ "Email non enregistré"|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+		{% for message in app.flashes('notice') %}
+			<div class="alert alert-info">{{message}}</div>
+		{% endfor %}
+		{% if app.user %}
+			<div class="mb-3">
+				You are logged in as
+				{{ app.user.username }},
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</div>
+		{% endif %}
+		<form action="" method="post">
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<h2>Connexion :</h2>
+			<input type="email" name="_username" id="" placeholder="example@gmail.com">
+			<input type="password" name="_password" id="" placeholder="************">
+			<button class="btn-dark" type="submit">Se connecter</button>
+			<a href="/home">Go home</a>
+			<hr>
+			<a href="/mot-de-passe-oublie">Mot de passe oublié ?</a>
+		</form>
+	</body>
+</html>

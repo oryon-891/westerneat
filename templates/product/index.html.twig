@@ -1,0 +1,66 @@
+{% extends 'dash.html.twig' %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/product.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
+{% endblock %}
+{% block body %}
+	<div class="search-group">
+		<input type="text" placeholder="Entrer le produit que vous chercher ...">
+		<button class="btn-dark">Search</button>
+	</div>
+	<div class="row-products">
+		{% for product in products %}
+			<div class="card-product" style="margin:1em 0;">
+				<div class="card-img">
+					<img src="{{ asset('uploads/products/' ~ product.illustration) }}" alt=""/>
+				</div>
+				<div class="card-body">
+					<h5>{{ product.name }}</h5>
+				</div>
+				<div
+					class="card-footer">
+					{#<button id="update-{{product.id}}" class="btn-update">Modifier</button>#}
+					<button id="close-{{product.id}}" class="btn-delete">Supprimer</button>
+				</div>
+			</div>
+			<dialog id="dialog_{{product.id}}">
+				<h3>Modifier produit</h3>
+				<input type="text" name="" id="" placeholder="Modifier le nom ...">
+				<input type="file" name="" id="" placeholder="example@gmail.com">
+				<input type="text" name="" id="" placeholder="Modifier le sous-titre ...">
+				<textarea id=""></textarea>
+				<input type="number" name="" id="" placeholder="Modifier le prix du produit ...">
+				<select id="category"></select>
+				<div>
+					<!--button class="btn-update">Modifier</button-->
+					<button id="close-dialog_{{product.id}}" class="btn-delete">Annuler</button>
+				</div>
+			</dialog>
+			<dialog id="dialog_delete_{{product.id}}" class="close">
+				<h3>Voulez-vous supprimer ce produit ?</h3>
+
+				<div style="display:flex;gap:1em;justify-content:center;">
+					<a href="/product_delete/{{product.id}}" class="btn-update">Continuer</a>
+					<button id="close-delete-dialog_{{product.id}}" class="btn-delete">Annuler</button>
+				</div>
+			</dialog>
+		{% endfor %}
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	 <script>
+					{% for product in products %}
+	
+						const dialog_delete_{{product.id}} = document.getElementById('close-{{product.id}}');
+						const dialog_del_{{product.id}} = document.getElementById('dialog_delete_{{product.id}}');
+							dialog_delete_{{product.id}}.addEventListener('click', () => {
+							dialog_del_{{product.id}}.showModal();
+						});
+						document.querySelector('#close-delete-dialog_{{product.id}}').onclick = function() {
+							dialog_del_{{product.id}}.close();
+						};
+					{% endfor %}	
+			</script>
+{% endblock %}

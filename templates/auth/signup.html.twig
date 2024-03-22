@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Alton</title>
+		<link rel="stylesheet" href="{{asset('css/reset.css')}}">
+		<link
+		rel="stylesheet" href="{{asset('css/form.css')}}">
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<style>
+			label {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		{{ form_start(form, {'method': 'post', 'action': path('app_signup'), }) }}
+		{{ form_errors(form) }}
+		{{ form_start(form) }}
+		<h2>Inscription</h2>
+		{{ form_row(form.firstname) }}
+		{{ form_row(form.lastname) }}
+		{{ form_row(form.email) }}
+
+		<select name="" id="query">
+
+			<option value="0">Sélectionnez la ville ....</option>
+			{% for cl in listings %}
+				<option id="query-{{cl[0]}}" value="{{cl[0]}}">{{cl[1]}}</option>
+			{% endfor %}
+		</select>
+		<input name="zone" id="zone" value="" hidden/>
+		<select name="district" id="district">
+			<option value="0">Sélectionnez le quartier ....</option>
+		</select>
+		<input
+		type="hidden" id="fos_user_registration_form__token" name="fos_user_registration_form[_token]" value="{{ form._token.vars.value }}">
+		{# <input type="hidden" id="user_commercant" name="_commercant" value="{{ commercantuser }}"> #}
+		{{ form_row(form.password) }}
+		{{ form_end(form) }}
+	</body>
+	 <script>
+
+	 const host = window.location.hostname;
+			        let ville;
+			        let selector = document.getElementById("query");
+			        let dis_selec = document.getElementById("district");
+			        selector.addEventListener("click", () => {
+			            // if default value is changed
+			            selector.addEventListener("change", async () => {
+			                // if value switched by client
+			                const response = await fetch(`https://${host}/search?query=${query.value}`);
+			                const dis = await response.json();
+							const opt = document.getElementById("query-"+query.value);
+							document.getElementById("zone").value = opt.innerText;
+			                dis_selec.options.length = 0;
+			                ville = document.getElementById("query-"+query.value);
+			                for(var i in dis){
+			                    var option = document.createElement("option");
+			                    option.text = dis[i].name;
+			                    option.value = dis[i].name;
+			                    dis_selec.appendChild(option);
+			                }
+			            });
+			        });
+				
+		</script>
+</html>

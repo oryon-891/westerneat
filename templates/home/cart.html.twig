@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/cart.css') }}"/>
+{% endblock %}
+{% block javascripts %}
+	 <script>
+		  const length = {{cart|length}};
+		  const host = window.location.hostname;
+		  async function update(index, id, flag, price){
+			const response = await fetch(flag === 1 ? `https://${host}/cart/update/${id}/true` : `https://${host}/cart/update/${id}/false`);
+			let quantity = document.getElementById(`quantity_${index}`);
+			quantity.innerText = `${(parseInt(quantity.innerText) + flag)}`;
+			let total = document.getElementById(`total_${index}`);
+			total.innerText = `${(parseInt(quantity.innerText) * price)}`
+			let sum_cart = 0;
+			for(let i = 1; i <= length; i++){
+				sum_cart += parseInt(document.getElementById(`total_${index}`).innerText)
+			}
+			document.getElementById("sum_cart").innerText = sum_cart;
+		  }
+		</script>
+{% endblock %}
+{% block body %}
+	{% set total = null %}
+	<section>
+		<h2>Votre Panier</h2>
+		<div style="overflow-x:auto;">
+			<table>
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Image</th>
+						<th>Nom</th>
+						<th>Quantité</th>
+						<th>Prix</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in cart %}
+						{# <twig:RowCart product="{{product}}" /> #}
+						{# {{ component('RowCart', {product: product, quantity: 1}) }} #}
+							<tr id="cell_{{loop.index}}"><th>{{loop.index}}
+							</th>
+								<td>
+							<img src="uploads/products/{{ product.illustration }}" alt="{{ product.name }}"/> </td>
+							<td>{{ product.name }}</td>
+							<td>
+								<div class="row">
+									<button style="background-color:white" {# href="{{path('app_cart_add',{ 'id' : product.id})}}" #} onclick="update({{loop.index}}, {{product.id}}, -1, {{product.price}})">
+									<svg height="38" viewbox="0 0 48 48" width="38" xmlns="http://www.w3.org/2000/svg">
+											<path d="M0 0h48v48h-48z" fill="none"/>
+											<path d="M24 4c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm10 22h-20v-4h20v4z"/>
+										</svg>
+									</button>
+									<span id="quantity_{{loop.index}}">{{ product.quantity }}</span>
+									<button style="background-color:white" onclick="update({{loop.index}}, {{product.id}}, 1, {{product.price}})">
+										<svg height="38" viewbox="0 0 48 48" width="38" xmlns="http://www.w3.org/2000/svg">
+											<path d="M0 0h48v48h-48z" fill="none"/>
+											<path d="M24 4c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm10 22h-8v8h-4v-8h-8v-4h8v-8h4v8h8v4z"/>
+										</svg>
+									</button>
+								</div>
+							</td>
+							<td>
+								<span id="total_{{loop.index}}">{{ (product.price * product.quantity )|number_format(2, ',', '.') }}</span>
+								FCFA</td>
+						</tr>
+						{% set total = total + product.price * product.quantity %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="footer-cart">
+			<p>Prix Total :
+				<span id="sum_cart">{{ (total)|number_format(2, ',', '.') }}</span>
+				F</p>
+			<a href="/recap" class="btn-dark">Valider Panier</a>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/cart.css') }}" />
+{% endblock %}
+{% block body %}
+  <section>
+    <h2>Resume de votre commande</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in order.orderDetails %}
+            <tr>
+              <th>1</th>
+              <td>{{ product.name }}</td>
+              <td>
+                <div class="row">
+                  <span>{{ product.quantity }}</span>
+                </div>
+              </td>
+              <td>{{ (product.price * product.quantity)|number_format(2, ',', '.') }} F</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-cart-col">
+      <p>
+        <strong>Sous-Total :</strong> {{ order.getTotalPrice|number_format(2, ',', '.') }} F
+      </p>
+      <p>
+        <strong>Commission :</strong> {{ order.getTotalPrice }} F
+      </p>
+
+      <p>
+        <strong>Total :</strong>
+        {{ order.getTotalPrice }} CFA
+      </p>
+    </div>
+  </section>
+{% endblock %}

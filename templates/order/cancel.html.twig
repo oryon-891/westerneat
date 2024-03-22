@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/cart.css') }}"/>
+{% endblock %}
+{% block body %}
+	<section class="d">
+		<div class="danger-block">
+			<div class="col">
+				<img src="/icons/fail.svg" alt=""/>
+			</div>
+			<div class="col">
+				<h3>Paiement Echoué</h3>
+				<ul>
+					<li>
+						Vérifié votre connexion
+					</li>
+					<li>
+						Vérifié les identifiants données</li>
+					<li>
+						Vérifié le montant de votre compte</li>
+				</ul>
+				<a class="redirect" href="/recap">
+					Voir le détail
+				</a>
+			</div>
+		</div>
+	</section>
+{% endblock %}

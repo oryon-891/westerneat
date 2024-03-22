@@ -1,0 +1,58 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1em 0;
+}
+
+form:not(.search-group), form:is(#admin) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 55%;
+  border-radius: 0.9em;
+  gap: 1em;
+  box-shadow: 5px 5px 5px #efefef, -5px -5px 5px #efefef;
+  padding: 1em;
+}
+
+form > div {
+  width: 100%;
+}
+
+input, textarea, select {
+  margin: 1em 0;
+  background-color : white;
+  border: 1px solid black;
+  border-radius: 0.7em;
+  font-family:"VP Next";
+  padding: 1em;
+  width: 80%;
+}
+
+input:focus {
+  border: none;
+}
+
+form a {
+  padding: 0;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 820px) {
+  form:not(.search-group), form:is(#admin) {
+    width: 90%;
+  }
+
+  form > * {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+	

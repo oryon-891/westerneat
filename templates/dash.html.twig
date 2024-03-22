@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			{% block title %}
+				Welcome in Westerneat!
+			{% endblock %}
+		</title>
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1"/>
+		{# Run `composer require symfony/webpack-encore-bundle`
+								           and uncomment the following Encore helpers to start using Symfony UX #}
+
+		{% block stylesheets %}
+			{# {{ encore_entry_link_tags('app') }} #}
+		{% endblock %}
+		<link rel="stylesheet" href="{{ asset('css/reset.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('css/admin.css') }}"/> {% block style %}{% endblock %}
+		</head>
+		<body>
+			<section>
+				{% include '/components/sidebar.html.twig' %}
+				<div class="main_view"> {% block body %}{% endblock %}
+					</div>
+				</section>
+			</body>
+			 <script defer>
+						let hamburger = document.getElementById("hamburger");
+						let sidebar = document.getElementById("sidebar");
+						
+						hamburger.onclick = (event) => {
+						  if(sidebar.classList.contains("zero")){
+						     sidebar.classList.remove("zero");
+						     sidebar.classList.add("expand");
+						  }else{
+						     sidebar.classList.remove("expand");
+						     sidebar.classList.add("zero");
+						  }
+						};
+						</script>
+			{% block javascripts %}
+				{# {{ encore_entry_script_tags('app') }} #}
+			{% endblock %}
+		</html>

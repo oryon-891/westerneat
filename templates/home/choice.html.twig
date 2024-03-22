@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/index.css')}}">
+        <style>
+            #vendor, #client{
+              cursor:pointer;
+            }
+        </style>
+{% endblock %}
+{% block body %}
+        <h3>Choisissez le type de compte</h3>
+	<section id="account" data-aos="zoom-in" data-aos-duration="2500">
+		<div class="row-link" id="vendor">
+			<img src="{{asset('images/IMG_4053.jpg')}}" alt="">
+			<p>Vous êtes commerçants ?</p>
+			<a href="/inscription/commercant">Cliquez sur ce lien -></a>
+		</div>
+		<div class="row-link" id="client">
+			<img src="{{asset('images/IMG_4055.jpg')}}" alt="">
+			<p>Vous êtes clients ?</p>
+			<a href="/inscription/client">Cliquez sur ce lien -></a>
+		</div>
+	</section>
+</section>
+<br>
+{% endblock %}
+
+{% block scripts %}
+	{# <script>
+	let vendor = document.getElementById("vendor");
+        let client = document.getElementById("client");
+        vendor.addEventListener('click', () => {
+           location.replace("https://westerneat.com/inscription/commercant");
+        });
+        client.addEventListener('click', () => {
+           location.replace("https://westerneat.com/inscription/client");
+        });
+	        
+       </script> #}
+{% endblock %}

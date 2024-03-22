@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/detail.css') }}" />
+{% endblock %}
+{% block body %}
+  <section>
+    <div class="row">
+      <div class="col" data-aos="fade-right" data-aos-duration="1500">
+        <div class="card-img">
+          <img src="{{ asset('uploads/products/' ~ product.illustration) }}" alt="" />
+        </div>
+      </div>
+
+      <div class="col" data-aos="fade-left" data-aos-duration="1500">
+        <div>
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.subtitle }}</p>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <h3>{{ product.price }} FCFA</h3>
+          <p>{{product.description}}</p>
+        </div>
+        <div class="divider"></div>
+        {# <div class="counter">
+          <span>-</span>
+          <span>1</span>
+          <span>+</span>
+          {# 
+          <div class="last-row">
+            <p>
+              Only
+              <span>12 items</span>
+              left
+            </p>
+            <span>Don't miss it</span>
+          </div> 
+        </div> #}
+          <a href="{{ path('app_cart_add', {'id' : product.id }) }}" class="btn-dark" autofocus>Ajouter au panier</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

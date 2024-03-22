@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/cart.css') }}" />
+  
+  <style>
+   label{
+    display:none;
+   }
+  </style>
+{% endblock %}
+{% block body %}
+  {% set total = null %}
+  <section>
+    <h2>Résumé de votre commande</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Image</th>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Prix</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in cart %}
+            <tr>
+              <th>1</th>
+              <td>
+                <img src="uploads/products/{{ product.illustration }}" alt="{{ product.name }}" />
+              </td>
+              <td>{{ product.name }}</td>
+              <td>
+                <div class="row">
+                  <span>{{ product.quantity }}</span>
+                </div>
+              </td>
+              <td>{{ (product.price * product.quantity)|number_format(2, ',', '.') }} CFA</td>
+            </tr>
+            {% set total = total + product.price * product.quantity %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-cart">
+      <p>Prix Total : {{ (total )|number_format(2, ',', '.') }} CFA</p>
+      {% set formHtml %}
+        {{ form_start(form, { action: path('app_recap') }) }}
+         <input type="hidden" name="price" value="{{total}}">
+        {{ form_end(form) }}
+      {% endset %}
+
+      {{ formHtml|replace({ '[br]': '<br/>' })|raw }}
+    </div>
+  </section>
+{% endblock %}

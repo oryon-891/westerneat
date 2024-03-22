@@ -1,0 +1,9 @@
+
+<form action='https://test.billing-easy.net' method="post" >
+<input type='hidden' name='invoice_number' value={{ bill_id }}>
+<input type='hidden' name='merchant_redirect_url' value='https://westerneat.osc-fr1.scalingo.io/billing_backpage
+'>
+</form>
+<script>
+document.forms[0].submit();
+</script>

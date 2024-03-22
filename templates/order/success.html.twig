@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+{# <script src="https://js.stripe.com/v3/"></script> #}
+{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/cart.css') }}" />
+{% endblock %}
+{% block body %}
+<section class="d">
+<div class="success-block">
+<div class="col">
+<img src="/icons/success.svg" alt=""/>
+</div>
+<div class="col">
+<h3>Paiement Réussi</h3>
+<a class="redirect" href="{{ path('app_order_detail', { reference: order.reference }) }}">
+										Voir le détail
+</a>
+</div>
+</div>
+</section>
+{% endblock %}

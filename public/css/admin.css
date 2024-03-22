@@ -1,0 +1,200 @@
+.command {
+  overflow-y: scroll;
+  width: 100%;
+  height: 89vh;
+}
+
+section {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: start;
+  justify-content: start;
+}
+
+.main_view {
+  width: 75%;
+  padding: 0 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar {
+  background-color: var(--black-accent);
+  color: white;
+  width: 25%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  overflow: scroll;
+}
+
+.sidebar a.link {
+  padding: 0.8em;
+  margin: 0.5em 0;
+  height: 3.6em;
+  width: 60%;
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: 1em;
+  text-align: center;
+  color: var(--black-accent);
+  background-color: var(--primary-accent);
+  transition: 0.8s ease-in all;
+}
+
+.sidebar a.link:hover {
+  border: 1px solid white;
+  color: none;
+  text-align: center;
+  background-color: black;
+}
+
+.search-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding: 1em;
+}
+
+.search-group > * {
+  height: 50px;
+}
+
+.row-products {
+  padding: 0em 1em;
+  height: 71vh;
+  overflow-y: scroll;
+  align-items: start;
+}
+
+.row-products .card-product {
+  width: 24%;
+  border-radius: 1em;
+  padding: 0.7em;
+  box-shadow: 3px 5px 10px #dddddd;
+}
+
+.card-product .card-footer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.card-product .card-footer button,
+:modal button, a.btn-update {
+  width: 45%;
+  padding: 1em;
+  border-radius: 0.8em;
+  color: white;
+}
+
+:modal button {
+  width: 40%;
+}
+
+.btn-update {
+  background-color: rgb(40, 40, 247);
+}
+
+.btn-delete {
+  background-color: rgb(245, 31, 31);
+}
+
+table {
+  width: 100%;
+  border-spacing: 0 1em;
+}
+
+td {
+  background-color: #efefef;
+}
+
+.td-first {
+  border-top-left-radius: 0.8em;
+  border-bottom-left-radius: 0.8em;
+}
+
+.td-last {
+  border-top-right-radius: 0.8em;
+  border-bottom-right-radius: 0.8em;
+}
+
+td,
+th {
+  padding: 1.2em 0;
+  text-align: center;
+}
+
+:modal {
+  border: none;
+  background-color: white;
+  border-radius: 0.9em;
+  width: 65%;
+}
+
+
+.close{
+  width:40%;
+  padding:2em 0;
+}
+
+
+.sidebar a.link img{
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  .zero {
+   width : 0%;
+  }
+
+  
+:modal {
+  width: 85%;
+}
+   
+  .menu{
+    margin : 15px 15px 0;
+    position : absolute;
+  }
+
+  /*#hamburger:focus-within {
+    z-index:-1;
+  }*/
+
+  .expand{
+    width : 25%;
+  }
+
+  .sidebar{
+   position : absolute;
+  }
+
+  .row-products {
+    padding: 1em 0.2em;
+  }
+
+  .sidebar a.link img{
+    display:inline;
+  }
+
+  .row-products .card-product {
+    width: 100%;
+  }
+
+  .sidebar a.link{
+    color: transparent;
+  }
+
+  
+  .main_view {
+   width: 100%;
+   padding : 2.2em 0.5em 0;
+  }
+
+}

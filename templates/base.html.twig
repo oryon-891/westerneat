@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>
+			{% block title %}
+				Welcome in Westerneat!
+			{% endblock %}
+		</title>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link
+		href="{{ asset('css/aos.css')}}" rel="stylesheet">
+		{# Run `composer require symfony/webpack-encore-bundle`
+						           and uncomment the following Encore helpers to start using Symfony UX #}
+		<link rel="stylesheet" href="{{ asset('assets/fashi-master/css/font-awesome.min.css') }}" type="text/css"/>
+		<style>
+			.badge {
+				background-color: var(--primary-accent);
+				position: absolute;
+				margin: -0.5em 0 0;
+				padding: 0.2em;
+				width: 2em;
+				border-radius: 2em;
+			}
+			.social-links {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 20%;
+			}
+			.social-links li {
+				border: 1px solid white;
+				border-radius: 0.8em;
+				text-align: center;
+				padding: 0.7em;
+				width: 58px;
+				transition: all 0.5s ease-in-out;
+			}
+			.social-links a svg {
+				width: 30px;
+				height: 30px;
+				fill: white;
+			}
+			.social-links li:nth-child(1):hover {
+				background-color: #395498;
+				scale: 1.3;
+			}
+
+			.social-links li:nth-child(2):hover {
+				background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+				scale: 1.3;
+			}
+		</style>
+
+		<link rel="stylesheet" href="{{ asset('css/reset.css') }}"/>
+		{% block stylesheets %}
+		{% endblock %}
+
+		{% block javascripts %}
+		{% endblock %}
+	</head>
+	<body>
+		<header>
+			<nav>
+				<a href="/"><img src="/images/westerneat.png" class="header-img" alt=""></a>
+				<ul id="visible">
+					<li class="li">
+						<a href="/">Accueil</a>
+						<span class="li"></span>
+					</li>
+					<li class="li">
+						<a href="/products">Produits</a>
+						<span class="li"></span>
+					</li>
+					<li class="li">
+						<a href="/vendors">Vendeurs</a>
+						<span class="li"></span>
+					</li>
+					<li class="li">
+						<a href="/cart" style="position:relative;">Panier
+							<span class="badge">
+								{% if items is defined %}
+									{{items|length}}{% else %}0
+								{% endif %}
+							</span>
+						</a>
+						<span class="li"></span>
+					</li>
+				</ul>
+				<ul id="visible">
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="li">
+							<a href="/admin">Voir Compte</a>
+						</li>
+						<li class="last">
+							<a href="/signout">Déconnexion</a>
+						</li>
+					{% elseif is_granted('ROLE_USER') %}
+						<li class="li">
+							<a href="/account">Voir Compte</a>
+						</li>
+						<li class="last">
+							<a href="/signout">Déconnexion</a>
+						</li>
+					{% elseif is_granted('ROLE_VENDOR') %}
+						<li class="li">
+							<a href="/account">Voir Compte</a>
+						</li>
+						<li class="last">
+							<a href="/signout">Déconnexion</a>
+						</li>
+					{% else %}
+						<li class="li">
+							<a href="/signup">Inscription</a>
+						</li>
+						<li class="last">
+							<a href="/signin">Connexion</a>
+						</li>
+					{% endif %}
+				</ul>
+
+				<ul id="hamburger">
+					<li id="show">
+						<a href="#" tabindex="0"><img src="{{ asset('images/menu.svg') }}" alt=""/></a>
+						<div class="card">
+							<ul>
+								<li class="li">
+									<a href="/">Accueil</a>
+								</li>
+								<li class="li">
+									<a href="/products">Produits</a>
+								</li>
+								<li class="li">
+									<a href="/vendors">Vendeurs</a>
+								</li>
+								<li class="li">
+									<a href="/cart">Panier</a>
+								</li>
+								{% if is_granted('ROLE_ADMIN') %}
+									<li class="li">
+										<a href="/admin">Voir Compte</a>
+									</li>
+									<li class="last">
+										<a href="/signout">Déconnexion</a>
+									</li>
+								{% elseif is_granted('ROLE_USER') %}
+									<li class="li">
+										<a href="/account">Voir Compte</a>
+									</li>
+									<li class="last">
+										<a href="/signout">Déconnexion</a>
+									</li>
+								{% elseif is_granted('ROLE_VENDOR') %}
+									<li class="li">
+										<a href="/account">Voir Compte</a>
+									</li>
+									<li class="last">
+										<a href="/signout">Déconnexion</a>
+									</li>
+								{% else %}
+									<li class="li">
+										<a href="/signup">Inscription</a>
+									</li>
+									<li class="last">
+										<a href="/signin">Connexion</a>
+									</li>
+								{% endif %}
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		{% block body %}{% endblock %}
+
+		<footer>
+			<div class="footer-ban">
+				<div>
+					<h4><img src="/images/westerneat.png" class="header-img" alt=""></h4>
+					<p>Leader dans la vente des produits alimentaires et accessoires au quotidien en ligne. Nous mettons à votre disposition un marché d’offreurs (commerçants) à travers le Gabon et un marché de demandeurs (clients) à travers le monde.</p>
+					<ul class="social-links">
+						<li>
+							<a href="https://www.facebook.com/profile.php?id=61552912235347">
+								<svg data-name="Layer 1" id="Layer_1" viewbox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+									<defs>
+										<style>
+											.cls-1 {
+												fill: none;
+												stroke: white;
+												stroke-miterlimit: 10;
+												stroke-width: 6.5px;
+											}
+										</style>
+									</defs><title/><path class="cls-1" d="M53.68,38.26v15.1H37.11V72H53.68v42H73.29V72H90l2-18.63H73.29V38.26c0-2.67,2.11-4,3-4.82,1.57-1.34,9.15-1.55,9.15-1.55h7.43V15a93.26,93.26,0,0,0-11.68-1C53.11,14,53.68,38.26,53.68,38.26Z"/></svg>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.instagram.com/westerneat_gabon/?next=%2F">
+								<svg viewbox="0 0 32 30" xmlns="http://www.w3.org/2000/svg">
+									<title></title>
+									<g data-name="ig instagram insta photo" id="ig_instagram_insta_photo">
+										<path d="M20.45,13.32a1,1,0,0,0-.57,1.3,4,4,0,1,1-2.31-2.3,1,1,0,1,0,.71-1.87,6,6,0,0,0-6.37,9.85,6,6,0,0,0,8.48,0,6,6,0,0,0,1.36-6.41A1,1,0,0,0,20.45,13.32Z"></path>
+										<circle cx="23" cy="9" r="1"></circle>
+										<path d="M28,9a5,5,0,0,0-4.9-5h0A77.11,77.11,0,0,0,9,4,5,5,0,0,0,4,8.92,91.91,91.91,0,0,0,4,23a5,5,0,0,0,4.9,5h0c2.36.22,4.73.34,7.1.34s4.71-.11,7.05-.34A5,5,0,0,0,28,23.08,87.09,87.09,0,0,0,28,9ZM26,23a3,3,0,0,1-3,3h-.1A71.73,71.73,0,0,1,9,26a3,3,0,0,1-3-3.08A92.4,92.4,0,0,1,6,9,3,3,0,0,1,9.09,6q3.44-.31,6.9-.32T23,6a3,3,0,0,1,3,3.08A85.13,85.13,0,0,1,26,23Z"></path>
+									</g>
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<h4>Contacts</h4>
+					<ul>
+						<li>France : +33 7 49 02 93 33
+						</li>
+						<li>Gabon : +241 62 96 61</li>
+						<li>Email : westerneat@gmail.com</li>
+						<li>
+							<a style="color:white;" href="/pdf/Politique.pdf">Politiques de Confidentialité</a>
+						</li>
+						<li>
+							<a style="color:white;" href="/pdf/Mention.pdf">Mentions légales</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<p>Westerneat - 2023 Design par E-Services @Tous droits réservés</p>
+		</footer>
+	</body>
+	 <script src="{{ asset('js/aos.js')}}"></script>
+	 <script>
+		           AOS.init();
+		</script>
+	{% block scripts%}{% endblock %}
+</html>

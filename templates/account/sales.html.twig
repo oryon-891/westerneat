@@ -1,0 +1,73 @@
+{% extends 'dash.html.twig' %}
+{% block stylesheets%}
+	<link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
+{% endblock %}
+{% block body %}
+		{# {% if is_granted('ROLE_VENDOR') %}
+			{% if user.numerotelephone == null %}
+				<h2 class="btn-danger text-center">Veuillez saisir votre numero airtel money</h2>
+				<br/>
+			{% else %}
+				<h2 class="btn-info text-center">Votre numero airtel money :
+					<span style="color:red;">{{ user.numerotelephone }}</span></h2>
+				<br/>
+			{% endif %}
+
+			{% if user.codecommercant == null %}
+				<h2 class="btn-danger text-center">Veuillez saisir votre code commercant</h2>
+				<br/>
+			{% else %}
+				<h2 class="btn-info text-center">Votre code commercant :
+					{{ user.codecommercant }}</h2>
+				<br/>
+			{% endif %}
+		{% endif %} #}
+		{% if (orders|length) == 0 %}
+			<hr/>
+			<p class="text-center">Vous n'avez pas encore passé des commandes sur la Boutique .</p>
+		{% else %}
+			<div class="command">
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">Référence</th>
+							<th scope="col">Statut</th>
+							<th scope="col">Commandé</th>
+							<th scope="col">Total</th>
+							<th scope="col">Detail</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for order in orders %}
+							<tr>
+								<td class="td-first">
+									<span class="badge badge-secondary">{{ order.reference }}</span>
+								</td>
+								<td>
+									{% if order.delivered == 1 %}
+										Paiement accepté
+									{% elseif order.delivered == 2 %}
+										Preparation en cours
+									{% elseif order.delivered == 3 %}
+										Livraison en cours
+									{% endif %}
+								</td>
+								<td>{{ order.createdAt|date('d/m/y') }}</td>{# 
+								<td>{{ order.orderDetails|length }}</td> #}
+								<td>
+									{# {{((order.carrierPrice + order.getTotal) / 100) | number_format(2, ',', '.')}} € #}
+									{#{ (order.carrierPrice / 100 * order.getTotal / 100 + order.getTotal)|number_format(2, ',', '.') }#}
+									{{ order.totalPrice }} CFA
+								</td>
+								<td class="text-right td-last">
+									 <a href="{{ path('app_order_detail', { reference: order.reference }) }}">
+										<img src="/images/eye.svg" alt="">
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% endif %}
+{% endblock %}
