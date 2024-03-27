@@ -147,6 +147,7 @@ class HomeController extends AbstractController
                 ->setDelivered(0)
                 ->setTotalPrice(intval($request->request->get("price")) + $carrier[0]->getCommission())
                 ->setReference($date->format('YmdHis') . '-' . uniqid())
+	        ->setNumberMerchant('484841');
                 ->setCarrierName($carrier[0]->getName());
             $entityManager->persist($order);
 
