@@ -1,0 +1,7 @@
+app_e_billing:
+    path: /e_billing__callback
+    controller: App\Controller\OrderController::ebilling
+    methods: [GET, POST]
+    options:
+        expose: true
+        csrf_protection: false:
