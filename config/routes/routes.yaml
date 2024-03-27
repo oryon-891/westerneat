@@ -4,4 +4,4 @@ app_e_billing:
     methods: [GET, POST]
     options:
         expose: true
-        csrf_protection: false:
+        csrf_protection: false
