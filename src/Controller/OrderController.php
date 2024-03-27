@@ -172,14 +172,29 @@ class OrderController extends AbstractController
         $client = new Client([
             'base_uri' => 'https://staging.billing-easy.net/shap/api/v1/merchant/',
         ]);
+	$data = array(
+            'api_id' => 'e80390f1f2f4436',
+            'api_secret' => 'ade3c8-d784d4-99e989-c4ff4e-731f31'
+        );
+        $data_string = json_encode($data);
+
+        $res = $client->post('auth', [
+            'body' => $data_string,
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ]
+        ]);
+        $accesstoken = json_decode($res->getBody()->getContents());
+
 
         $order = $repository->findOneByReference($request->request->get('reference'));
         $order->setStatus("paid");
         $em->flush();
 
-        $logger->info("Get the ref : {ref}", ['ref' => $request->request->all()]);
         $logger->debug("Get the ref : {ref}", ['ref' => $request->request->all()]);
         $products = $order->getOrderDetails()->getValues();
+	return $this->json($access_token);
+
         /* try{
             foreach ($products as $item) {
                 $data = array(
